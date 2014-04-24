@@ -37,7 +37,7 @@ set_error_handler('ay\error_exception_handler');
 $config = array();
 
 if (file_exists(BASE_PATH . '/includes/config.inc.php')) {
-    $config	= require BASE_PATH . '/includes/config.inc.php';
+	$config = require BASE_PATH . '/includes/config.inc.php';
 }
 
 // Allow to overwrite default configuration in execution environment.
@@ -66,39 +66,39 @@ if (\AY\DEBUG && !empty($_SESSION['ay']['profiling'])) {
 }
 
 if (filter_has_var(INPUT_POST, 'ay')) {
-	array_walk_recursive($_POST['ay'], function(&$e){
-		$e	= trim($e);
+	array_walk_recursive($_POST['ay'], function (&$e) {
+		$e = trim($e);
 	});
-	
+
 	// Flash variable keeps track of the $_POST data in case there is an error 
 	// validating the form input and user needs to be returned to the form.
-	$_SESSION['ay']['flash']['input']	= $_POST['ay'];
+	$_SESSION['ay']['flash']['input'] = $_POST['ay'];
 }
 
 if (empty($_SESSION['xhprof']['remote_version'])) {
-	$ch			= curl_init();
-	
+	$ch = curl_init();
+
 	curl_setopt_array($ch, array(
-		CURLOPT_URL => 'https://raw.github.com/gajus/xhprof.io/master/version.json',
-		CURLOPT_HEADER => FALSE,
+		CURLOPT_URL            => 'https://raw.github.com/gajus/xhprof.io/master/version.json',
+		CURLOPT_HEADER         => FALSE,
 		CURLOPT_RETURNTRANSFER => TRUE
 	));
-	
-	$response	= curl_exec($ch);
-	
+
+	$response = curl_exec($ch);
+
 	curl_close($ch);
-	
-	$version	= json_decode($response, TRUE);
-	
+
+	$version = json_decode($response, TRUE);
+
 	if (!empty($version['version'])) {
-		$_SESSION['xhprof']['remote_version']	= $version['version'];
+		$_SESSION['xhprof']['remote_version'] = $version['version'];
 	}
-	
+
 	unset($version, $response);
 }
 
 if (!empty($_SESSION['xhprof']['remote_version']) && $_SESSION['xhprof']['remote_version'] != VERSION) {
 	\ay\message('You are running an out-of-date version of XHProf.io (' . VERSION . '). The <a href="http://xhprof.io/" target="_blank">current version is ' . htmlspecialchars($_SESSION['xhprof']['remote_version']) . '</a>.', \AY\MESSAGE_NOTICE);
-	
+
 	unset($_SESSION['xhprof']['remote_version']);
 }
