@@ -1,7 +1,6 @@
 {
-  "name": "gajus/xhprof.io",
   "autoload": {
-    "classmap": ["xhprof/classes"]
+    "PSR-4": { "XhprofIo": "src/"}
   },
   "require": {
 	"php": ">=5.3.3",
