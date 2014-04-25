@@ -3,9 +3,6 @@
     "PSR-4": { "XhprofIo": "src/"}
   },
   "require": {
-	"php": ">=5.3.3",
-	"ext-PDO": "*",
-        "ext-pdo_mysql": "*",
-	"ext-curl": "*"
+	"php": ">=5.3.3"
   }
 }
