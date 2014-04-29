@@ -10,29 +10,20 @@ class Pdo implements Engine {
 	protected $_conn;
 
 	/**
-	 * @param string|PDO $driver
-	 * @param string $host
-	 * @param string $database
+	 * @param string|PDO $dsn
 	 * @param string $user
 	 * @param string $pass
 	 * @throws \RuntimeException
 	 * @throws \PDOException
 	 */
-	public function __construct($driver, $host='', $database='', $user='', $pass='') {
-		if ($driver instanceof PDO) {
+	public function __construct($dsn, $user='', $pass='') {
+		if ($dsn instanceof \PDO) {
 			$this->_conn = $driver;
 		} else {
-			if (empty($driver) || empty($host) || empty($database)) {
-				throw new \RuntimeException('PDO connections require a driver, host, and database name');
+			if (empty($dsn)) {
+				throw new \RuntimeException('PDO connections require a DSN');
 			}
-
-			$availDrivers = PDO::getAvailableDrivers();
-			if (!in_array($driver, $availDrivers)) {
-				throw new \RuntimeException('PDO driver type not in list of available drivers: '. implode(', ', $availDrivers));
-			}
-
-			$dsn = implode(':', array($driver, 'dbname='. $database, 'host='. $host));
-			$this->_conn = new PDO($dsn, $user, $pass);
+			$this->_conn = new \PDO($dsn, $user, $pass);
 		}
 	}
 

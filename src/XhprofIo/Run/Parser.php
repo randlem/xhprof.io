@@ -12,13 +12,29 @@ class Parser {
 		$run = new \XhprofIo\Run();
 
 		$run->setRunId($this->generateUniqueRunId());
+		if (php_sapi_name() == 'cli') {
+			$this->buildCliRunMeta($run);
+		} else {
+			$this->buildApacheRunMeta($run);
+		}
+
+		$run->setCallgraph($this->parseCallgraph($raw));
+
+		return $run;
+	}
+
+	protected function buildCliRunMeta(\XhprofIo\Run &$run) {
+		$run->setRequestUri($_SERVER['PWD']. DIRECTORY_SEPARATOR. $_SERVER['SCRIPT_FILENAME']);
+		$run->setRequestMethod('cli');
+		$run->setServerName(php_uname('n'));
+		$run->setRequestTime($_SERVER['REQUEST_TIME']);
+	}
+
+	protected function buildApacheRunMeta(\XhprofIo\Run &$run) {
 		$run->setRequestUri($_SERVER['REQUEST_URI']);
 		$run->setRequestMethod($_SERVER['REQUEST_METHOD']);
 		$run->setServerName($_SERVER['SERVER_NAME']);
 		$run->setRequestTime($_SERVER['REQUEST_TIME']);
-		$run->setCallgraph($this->parseCallgraph($raw));
-
-		return $run;
 	}
 
 	/**
@@ -27,11 +43,16 @@ class Parser {
 	 */
 	protected function parseCallgraph($raw) {
 		$callgraph = new Callgraph\Container();
-		foreach ($raw_data as $call=>$data) {
-			list($caller, $callee) = explode('==>', $call);
+		foreach ($raw as $call=>$data) {
+			$parts = explode('==>', $call);
+			if (count($parts) == 1) {
+				$callee = $parts[0];
+			} else {
+				list($caller, $callee) = $parts;
+			}
 
 			$node = new \XhprofIo\Run\Call();
-			$node->setCaller(empty($caller) ? NULL : $caller);
+			$node->setCaller(empty($caller) ? NULL : $caller)
 				 ->setCallee($callee)
 				 ->setCount($data['ct'])
 				 ->setCpuTime($data['cpu'])
@@ -47,7 +68,7 @@ class Parser {
 	 * @return string
 	 */
 	protected function generateUniqueRunId() {
-		return sha1($_SERVER['SERVER_NAME']. $_SERVER['REQUEST_URI']. $_SERVER['REQUEST_METHOD']. microtime(TRUE));
+		return sha1(php_uname('n'). getmypid(). microtime(TRUE));
 	}
 
 } 

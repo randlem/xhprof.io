@@ -8,8 +8,9 @@ CREATE TABLE `callgraphs` (
   `cpu`     INTEGER UNSIGNED DEFAULT NULL,
   `mu`      INTEGER UNSIGNED DEFAULT NULL,
   `pmu`     INTEGER UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`runId`, `callee`, `caller`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`runId`, `callee`, `caller`),
+  KEY `idx_caller_callee` (`caller`,`callee`)
+);
 
 DROP TABLE IF EXISTS `runs`;
 CREATE TABLE `runs` (
@@ -19,7 +20,7 @@ CREATE TABLE `runs` (
   `server`  VARCHAR(20) NOT NULL,
   `time`    INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_uri`    (`uri`(40)),
+  KEY `idx_uri` (`uri`(20)),
   KEY `idx_method` (`method`),
   KEY `idx_server` (`server`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);

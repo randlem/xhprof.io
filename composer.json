@@ -1,6 +1,6 @@
 {
   "autoload": {
-    "PSR-4": { "XhprofIo": "src/"}
+    "psr-0": { "XhprofIo\\": "src/" }
   },
   "require": {
 	"php": ">=5.3.3"

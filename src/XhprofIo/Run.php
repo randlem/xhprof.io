@@ -79,7 +79,8 @@ class Run implements Hydrateable, Dehydrateable {
 			case 'PUT':
 			case 'DELETE':
 			case 'OPTIONS':
-			case 'HEAD': {
+			case 'HEAD':
+			case 'cli':  {
 				$this->_method = $method;
 			} break;
 		}
@@ -94,11 +95,11 @@ class Run implements Hydrateable, Dehydrateable {
 	}
 
 	/**
-	 * @param string $name
+	 * @param string $server
 	 * @return $this
 	 */
-	public function setServerName($name) {
-		$this->_name = $name;
+	public function setServerName($server) {
+		$this->_server = $server;
 		return $this;
 	}
 
