@@ -7,31 +7,38 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/app.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	<script src="js/controllers.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular-resource.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body ng-controller="RunsListController">
 
-<table>
-	<thead>
-		<tr>
-			<th>Run Id:</th>
-			<th>URI:</th>
-			<th>Method:</th>
-			<th>Server:</th>
-			<th>Time:</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="run in runs">
-			<td>{{run.id}}</td>
-			<td>{{run.uri}}</td>
-			<td>{{run.method}}</td>
-			<td>{{run.server}}</td>
-			<td>{{run.time}}</td>
-		</tr>
-	</tbody>
-</table>
+
+<div class="container">
+    <h1>XHProf.IO</h1>
+    <table class="table table-striped">
+	    <thead>
+		    <tr>
+			    <th>Run Id:</th>
+			    <th>URI:</th>
+			    <th>Method:</th>
+			    <th>Server:</th>
+			    <th>Time:</th>
+		    </tr>
+	    </thead>
+	    <tbody>
+		    <tr ng-repeat="run in runs">
+			    <td>{{run.id}}</td>
+			    <td>{{run.uri}}</td>
+			    <td>{{run.method}}</td>
+			    <td>{{run.server}}</td>
+			    <td>{{run.time}}</td>
+		    </tr>
+	    </tbody>
+    </table>
+</div>
 
 </body>
 </html>

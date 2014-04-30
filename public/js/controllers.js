@@ -1,6 +1,6 @@
-var app = angular.module('XhprofIoApp', []);
+var appControllers = angular.module('appControllers', []);
 
-app.controller('RunsListController', ['$scope', 'Run',
+appControllers.controller('RunsListController', ['$scope', 'Run',
 	function ($scope, Run) {
 		$scope.runs = Run.query();
 	}]);

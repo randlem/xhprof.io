@@ -2,11 +2,12 @@ var appServices = angular.module('appServices', ['ngResource']);
 
 appServices.factory('Run', ['$resource',
 	function ($resource) {
-		return $resource('/runs/:runId.json', {}, {
+		console.log('service');
+		return $resource('/runs/:runId', {}, {
 			query: {
 				method: 'GET',
 				params: {
-					runId: 'runs'
+					runId: ''
 				},
 				isArray: true
 			}

@@ -64,10 +64,12 @@ class Pdo implements Engine {
 	 */
 	public function available() {
 		$out  = array();
-		$stmt = $this->_conn->prepare('SELECT `id` FROM `runs`');
+		$stmt = $this->_conn->prepare('SELECT * FROM `runs`');
 		$stmt->execute();
 		while ($raw = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-			$out[] = $raw['id'];
+			$run   = new \XhprofIo\Run();
+			$run->hydrate($raw);
+			$out[] = $run;
 		}
 		return $out;
 	}

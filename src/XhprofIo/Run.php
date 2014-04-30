@@ -163,11 +163,11 @@ class Run implements Hydrateable, Dehydrateable {
 	 */
 	public function dehydrate() {
 		return array(
-			$this->_id,
-			$this->_uri,
-			$this->_method,
-			$this->_server,
-			$this->_time,
+			'id'     => $this->_id,
+			'uri'    => $this->_uri,
+			'method' => $this->_method,
+			'server' => $this->_server,
+			'time'   => $this->_time,
 		);
 	}
 
