@@ -18,5 +18,8 @@ interface Engine {
 	 */
 	public function load($id);
 
-
+	/**
+	 * @return array
+	 */
+	public function available();
 }

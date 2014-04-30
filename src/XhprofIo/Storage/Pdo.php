@@ -60,6 +60,19 @@ class Pdo implements Engine {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function available() {
+		$out  = array();
+		$stmt = $this->_conn->prepare('SELECT `id` FROM `runs`');
+		$stmt->execute();
+		while ($raw = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+			$out[] = $raw['id'];
+		}
+		return $out;
+	}
+
+	/**
 	 * @param $id
 	 *
 	 * @return \XhprofIo\Run
@@ -69,7 +82,7 @@ class Pdo implements Engine {
 		$stmt = $this->_conn->prepare('SELECT * FROM `runs` WHERE id = ?');
 		$stmt->bindParam(1, $id);
 		$stmt->execute();
-		if (!($raw = $stmt->fetch(PDO::FETCH_ASSOC))) {
+		if (!($raw = $stmt->fetch(\PDO::FETCH_ASSOC))) {
 			throw new \RuntimeException('Couldn\'t find run with id = '. $id);
 		}
 
@@ -89,7 +102,7 @@ class Pdo implements Engine {
 		$stmt->execute();
 
 		$callgraph = new \XhprofIo\Run\Callgraph\Container();
-		while ($raw = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		while ($raw = $stmt->fetch(\PDO::FETCH_ASSOC)) {
 			$node = new \XhprofIo\Run\Call();
 			$node->hydrate($raw);
 			$callgraph->append($node);
