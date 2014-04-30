@@ -1,8 +1,9 @@
 {
-  "autoload": {
-    "psr-0": { "XhprofIo\\": "src/" }
-  },
-  "require": {
-	"php": ">=5.3.3"
-  }
+	"autoload": {
+		"psr-0": { "XhprofIo\\": "src/" }
+	},
+	"require": {
+		"php": ">=5.3.3",
+		"slim/slim": "2.4.*"
+	}
 }
