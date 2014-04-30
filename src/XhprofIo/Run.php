@@ -142,8 +142,12 @@ class Run implements Hydrateable, Dehydrateable {
 		return $this->_callgraph;
 	}
 
-	public function hydrate($vals) {
-
+	public function hydrate(array $vals) {
+		$this->_id     = (isset($vals['id']))     ? $vals['id']     : $vals[0];
+		$this->_uri    = (isset($vals['uri']))    ? $vals['uri']    : $vals[1];
+		$this->_method = (isset($vals['method'])) ? $vals['method'] : $vals[2];
+		$this->_server = (isset($vals['server'])) ? $vals['server'] : $vals[3];
+		$this->_time   = (isset($vals['time']))   ? $vals['time']   : $vals[4];
 	}
 
 	/**

@@ -103,8 +103,14 @@ class Call implements Hydrateable, Dehydrateable  {
 		$this->_pmu = $pmu;
 	}
 
-	public function hydrate($vals) {
-
+	public function hydrate(array $vals) {
+		$this->_caller = (isset($vals['caller'])) ? $vals['caller'] : $vals[0];
+		$this->_callee = (isset($vals['callee'])) ? $vals['callee'] : $vals[1];
+		$this->_ct     = (isset($vals['ct']))     ? $vals['ct']     : $vals[2];
+		$this->_cpu    = (isset($vals['cpu']))    ? $vals['cpu']    : $vals[3];
+		$this->_wt     = (isset($vals['wt']))     ? $vals['wt']     : $vals[4];
+		$this->_mu     = (isset($vals['mu']))     ? $vals['mu']     : $vals[5];
+		$this->_pmu    = (isset($vals['pmu']))    ? $vals['pmu']    : $vals[6];
 	}
 
 	public function dehydrate() {
