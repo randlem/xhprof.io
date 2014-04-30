@@ -6,6 +6,7 @@ class Parser {
 
 	/**
 	 * @param array $raw
+	 *
 	 * @return \XhprofIo\Run
 	 */
 	public function parse($raw) {
@@ -23,6 +24,9 @@ class Parser {
 		return $run;
 	}
 
+	/**
+	 * @param \XhprofIo\Run $run
+	 */
 	protected function buildCliRunMeta(\XhprofIo\Run &$run) {
 		$run->setRequestUri($_SERVER['PWD']. DIRECTORY_SEPARATOR. $_SERVER['SCRIPT_FILENAME']);
 		$run->setRequestMethod('cli');
@@ -30,6 +34,9 @@ class Parser {
 		$run->setRequestTime($_SERVER['REQUEST_TIME']);
 	}
 
+	/**
+	 * @param \XhprofIo\Run $run
+	 */
 	protected function buildApacheRunMeta(\XhprofIo\Run &$run) {
 		$run->setRequestUri($_SERVER['REQUEST_URI']);
 		$run->setRequestMethod($_SERVER['REQUEST_METHOD']);
@@ -51,7 +58,7 @@ class Parser {
 				list($caller, $callee) = $parts;
 			}
 
-			$node = new \XhprofIo\Run\Call();
+			$node = new Call();
 			$node->setCaller(empty($caller) ? NULL : $caller)
 				 ->setCallee($callee)
 				 ->setCount($data['ct'])

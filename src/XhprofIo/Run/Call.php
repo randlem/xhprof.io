@@ -43,6 +43,7 @@ class Call implements Hydrateable, Dehydrateable  {
 
 	/**
 	 * @param string $caller
+	 *
 	 * @return $this
 	 */
 	public function setCaller($caller) {
@@ -52,6 +53,7 @@ class Call implements Hydrateable, Dehydrateable  {
 
 	/**
 	 * @param string $callee
+	 *
 	 * @return $this
 	 */
 	public function setCallee($callee) {
@@ -61,6 +63,7 @@ class Call implements Hydrateable, Dehydrateable  {
 
 	/**
 	 * @param int $ct
+	 *
 	 * @return $this
 	 */
 	public function setCount($ct) {
@@ -70,6 +73,7 @@ class Call implements Hydrateable, Dehydrateable  {
 
 	/**
 	 * @param int $wt
+	 *
 	 * @return $this
 	 */
 	public function setWallTime($wt) {
@@ -79,6 +83,7 @@ class Call implements Hydrateable, Dehydrateable  {
 
 	/**
 	 * @param int $cpu
+	 *
 	 * @return $this
 	 */
 	public function setCpuTime($cpu) {
@@ -88,6 +93,7 @@ class Call implements Hydrateable, Dehydrateable  {
 
 	/**
 	 * @param int $mu
+	 *
 	 * @return $this
 	 */
 	public function setMemory($mu) {
@@ -97,12 +103,16 @@ class Call implements Hydrateable, Dehydrateable  {
 
 	/**
 	 * @param int $pmu
+	 *
 	 * @return $this
 	 */
 	public function setPeakMemory($pmu) {
 		$this->_pmu = $pmu;
 	}
 
+	/**
+	 * @param array $vals
+	 */
 	public function hydrate(array $vals) {
 		$this->_caller = (isset($vals['caller'])) ? $vals['caller'] : $vals[0];
 		$this->_callee = (isset($vals['callee'])) ? $vals['callee'] : $vals[1];
@@ -113,6 +123,9 @@ class Call implements Hydrateable, Dehydrateable  {
 		$this->_pmu    = (isset($vals['pmu']))    ? $vals['pmu']    : $vals[6];
 	}
 
+	/**
+	 * @return array
+	 */
 	public function dehydrate() {
 		return array(
 			$this->_caller,

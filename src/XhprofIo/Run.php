@@ -38,6 +38,7 @@ class Run implements Hydrateable, Dehydrateable {
 
 	/**
 	 * @param string $id
+	 *
 	 * @return $this
 	 */
 	public function setRunId($id) {
@@ -54,6 +55,7 @@ class Run implements Hydrateable, Dehydrateable {
 
 	/**
 	 * @param string $uri
+	 *
 	 * @return $this
 	 */
 	public function setRequestUri($uri) {
@@ -70,6 +72,7 @@ class Run implements Hydrateable, Dehydrateable {
 
 	/**
 	 * @param string $method
+	 *
 	 * @return $this
 	 */
 	public function setRequestMethod($method) {
@@ -96,6 +99,7 @@ class Run implements Hydrateable, Dehydrateable {
 
 	/**
 	 * @param string $server
+	 *
 	 * @return $this
 	 */
 	public function setServerName($server) {
@@ -128,6 +132,7 @@ class Run implements Hydrateable, Dehydrateable {
 
 	/**
 	 * @param Run\Callgraph\Container $callgraph
+	 *
 	 * @return $this
 	 */
 	public function setCallgraph(Run\Callgraph\Container $callgraph) {
@@ -142,6 +147,9 @@ class Run implements Hydrateable, Dehydrateable {
 		return $this->_callgraph;
 	}
 
+	/**
+	 * @param array $vals
+	 */
 	public function hydrate(array $vals) {
 		$this->_id     = (isset($vals['id']))     ? $vals['id']     : $vals[0];
 		$this->_uri    = (isset($vals['uri']))    ? $vals['uri']    : $vals[1];

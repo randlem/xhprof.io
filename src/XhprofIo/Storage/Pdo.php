@@ -1,7 +1,6 @@
 <?php
 namespace XhprofIo\Storage;
 
-
 class Pdo implements Engine {
 
 	/**
@@ -13,12 +12,13 @@ class Pdo implements Engine {
 	 * @param string|PDO $dsn
 	 * @param string $user
 	 * @param string $pass
+	 *
 	 * @throws \RuntimeException
 	 * @throws \PDOException
 	 */
 	public function __construct($dsn, $user='', $pass='') {
 		if ($dsn instanceof \PDO) {
-			$this->_conn = $driver;
+			$this->_conn = $dsn;
 		} else {
 			if (empty($dsn)) {
 				throw new \RuntimeException('PDO connections require a DSN');
@@ -51,10 +51,51 @@ class Pdo implements Engine {
 	/**
 	 * @param string $id
 	 *
-	 * @return null|\XhprofIo\Run
+	 * @return \XhprofIo\Run
 	 */
 	public function load($id) {
+		$run  = $this->loadRun($id);
+		$run->setCallgraph($this->loadCallgraph($id));
+		return $run;
+	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return \XhprofIo\Run
+	 * @throws \RuntimeException
+	 */
+	protected function loadRun($id) {
+		$stmt = $this->_conn->prepare('SELECT * FROM `runs` WHERE id = ?');
+		$stmt->bindParam(1, $id);
+		$stmt->execute();
+		if (!($raw = $stmt->fetch(PDO::FETCH_ASSOC))) {
+			throw new \RuntimeException('Couldn\'t find run with id = '. $id);
+		}
+
+		$run = new \XhprofIo\Run();
+		$run->hydrate($raw);
+		return $run;
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return \XhprofIo\Run\Callgraph\Container
+	 */
+	protected function loadCallgraph($id) {
+		$stmt = $this->_conn->prepare('SELECT * FROM `callgraphs` WHERE runId = ?');
+		$stmt->bindParam(1, $id);
+		$stmt->execute();
+
+		$callgraph = new \XhprofIo\Run\Callgraph\Container();
+		while ($raw = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$node = new \XhprofIo\Run\Call();
+			$node->hydrate($raw);
+			$callgraph->append($node);
+		}
+
+		return $callgraph;
 	}
 
 	/**

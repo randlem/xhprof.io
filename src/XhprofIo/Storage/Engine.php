@@ -6,12 +6,14 @@ interface Engine {
 
 	/**
 	 * @param \XhprofIo\Run $run
+	 *
 	 * @return bool
 	 */
 	public function save(\XhprofIo\Run $run);
 
 	/**
-	 * @param string $id
+	 * @param string $id\
+	 *
 	 * @return \XhprofIo\Run
 	 */
 	public function load($id);
