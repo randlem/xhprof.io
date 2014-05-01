@@ -1,0 +1,20 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Run Id:</th>
+        <th>URI:</th>
+        <th>Method:</th>
+        <th>Server:</th>
+        <th>Time:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="run in runs">
+        <td title="{{run.id}}"><a href="#/runs/{{run.id}}">{{run.id | shortenId}}</a></td>
+        <td title="{{run.uri}}">{{run.uri | shortenUri}}</td>
+        <td>{{run.method}}</td>
+        <td>{{run.server}}</td>
+        <td>{{run.time | formatTime}}</td>
+    </tr>
+    </tbody>
+</table>

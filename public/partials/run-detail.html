@@ -1,0 +1,53 @@
+<h2 title="{{run.id}}">{{run.id | shortenId}}</h2>
+<table class="table table-condensed">
+    <tbody>
+        <tr>
+            <th>URI:</th>
+            <td colspan="5">{{run.uri}}</td>
+        </tr>
+        <tr>
+            <th>Server</th>
+            <td>{{run.server}}</td>
+            <th>Method</th>
+            <td>{{run.method}}</td>
+            <th>Requested At</th>
+            <td>{{run.time | formatTime}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th colspan="2"></th>
+            <th colspan="4">Inclusive</th>
+            <th colspan="4">Exclusive</th>
+        </tr>
+        <tr>
+            <th>Call</th>
+            <th>Count</th>
+            <th>Wall Time</th>
+            <th>CPU Time</th>
+            <th>Memory</th>
+            <th>Peak Mem</th>
+            <th>Wall Time</th>
+            <th>CPU Time</th>
+            <th>Memory</th>
+            <th>Peak Mem</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="call in run.callgraph">
+            <td>{{call.caller + '=>' + call.callee}}</td>
+            <td>{{call.ct}}</td>
+            <td>{{call.wt}}</td>
+            <td>{{call.cpu}}</td>
+            <td>{{call.mu}}</td>
+            <td>{{call.pmu}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

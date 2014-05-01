@@ -14,7 +14,12 @@ $app->get('/runs', function () use ($app, $storage) {
 });
 
 $app->get('/runs/:runId', function ($id) use ($app, $storage) {
-
+	$run = $storage->load($id);
+	$out = $run->dehydrate();
+	foreach ($run->getCallgraph() as $call) {
+		$out['callgraph'][] = $call->dehydrate();
+	}
+	echo json_encode($out);
 });
 
 $app->run();

@@ -128,13 +128,13 @@ class Call implements Hydrateable, Dehydrateable  {
 	 */
 	public function dehydrate() {
 		return array(
-			$this->_caller,
-			$this->_callee,
-			$this->_ct,
-			$this->_cpu,
-			$this->_wt,
-			$this->_mu,
-			$this->_pmu,
+			'caller' => $this->_caller,
+			'callee' => $this->_callee,
+			'ct'     => $this->_ct,
+			'cpu'    => $this->_cpu,
+			'wt'     => $this->_wt,
+			'mu'     => $this->_mu,
+			'pmu'    => $this->_pmu,
 		);
 	}
 
