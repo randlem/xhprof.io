@@ -40,9 +40,9 @@
         <tr ng-repeat="call in run.callgraph">
             <td>{{call.caller + '=>' + call.callee}}</td>
             <td>{{call.ct}}</td>
-            <td>{{call.wt}}</td>
-            <td>{{call.cpu}}</td>
-            <td>{{call.mu}}</td>
+            <td>{{call.wt | formatTiming}}</td>
+            <td>{{call.cpu | formatTiming}}</td>
+            <td>{{call.mu | formatMemory}}</td>
             <td>{{call.pmu}}</td>
             <td></td>
             <td></td>
