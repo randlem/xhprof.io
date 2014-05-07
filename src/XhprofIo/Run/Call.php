@@ -17,6 +17,11 @@ class Call implements Hydrateable, Dehydrateable  {
 	protected $_callee;
 
 	/**
+	 * @var bool
+	 */
+	protected $_internal = FALSE;
+
+	/**
 	 * @var int
 	 */
 	protected $_ct;
@@ -57,7 +62,18 @@ class Call implements Hydrateable, Dehydrateable  {
 	 * @return $this
 	 */
 	public function setCallee($callee) {
+		static $internal;
+
+		if (empty($internal)) {
+			$funcs    = get_defined_functions();
+			$internal = $funcs['internal'];
+		}
+
 		$this->_callee = $callee;
+		if (in_array($callee, $internal)) {
+			$this->_internal = TRUE;
+		}
+
 		return $this;
 	}
 
@@ -108,19 +124,21 @@ class Call implements Hydrateable, Dehydrateable  {
 	 */
 	public function setPeakMemory($pmu) {
 		$this->_pmu = $pmu;
+		return $this;
 	}
 
 	/**
 	 * @param array $vals
 	 */
 	public function hydrate(array $vals) {
-		$this->_caller = (isset($vals['caller'])) ? $vals['caller'] : $vals[0];
-		$this->_callee = (isset($vals['callee'])) ? $vals['callee'] : $vals[1];
-		$this->_ct     = (isset($vals['ct']))     ? $vals['ct']     : $vals[2];
-		$this->_cpu    = (isset($vals['cpu']))    ? $vals['cpu']    : $vals[3];
-		$this->_wt     = (isset($vals['wt']))     ? $vals['wt']     : $vals[4];
-		$this->_mu     = (isset($vals['mu']))     ? $vals['mu']     : $vals[5];
-		$this->_pmu    = (isset($vals['pmu']))    ? $vals['pmu']    : $vals[6];
+		$this->_caller   = (isset($vals['caller']))   ? $vals['caller']   : $vals[0];
+		$this->_callee   = (isset($vals['callee']))   ? $vals['callee']   : $vals[1];
+		$this->_internal = (isset($vals['internal'])) ? $vals['internal'] : $vals[2];
+		$this->_ct       = (isset($vals['ct']))       ? $vals['ct']       : $vals[3];
+		$this->_cpu      = (isset($vals['cpu']))      ? $vals['cpu']      : $vals[4];
+		$this->_wt       = (isset($vals['wt']))       ? $vals['wt']       : $vals[5];
+		$this->_mu       = (isset($vals['mu']))       ? $vals['mu']       : $vals[6];
+		$this->_pmu      = (isset($vals['pmu']))      ? $vals['pmu']      : $vals[7];
 	}
 
 	/**
@@ -128,13 +146,14 @@ class Call implements Hydrateable, Dehydrateable  {
 	 */
 	public function dehydrate() {
 		return array(
-			'caller' => $this->_caller,
-			'callee' => $this->_callee,
-			'ct'     => $this->_ct,
-			'cpu'    => $this->_cpu,
-			'wt'     => $this->_wt,
-			'mu'     => $this->_mu,
-			'pmu'    => $this->_pmu,
+			'caller'   => $this->_caller,
+			'callee'   => $this->_callee,
+			'internal' => $this->_internal,
+			'ct'       => $this->_ct,
+			'cpu'      => $this->_cpu,
+			'wt'       => $this->_wt,
+			'mu'       => $this->_mu,
+			'pmu'      => $this->_pmu,
 		);
 	}
 
