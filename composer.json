@@ -1,9 +1,11 @@
 {
+	"type": "package",
 	"autoload": {
 		"psr-0": { "XhprofIo\\": "src/" }
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"slim/slim": "2.4.*"
+		"slim/slim": "2.4.*",
+		"zendframework/zend-stdlib": "2.3.*"
 	}
 }
