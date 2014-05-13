@@ -32,8 +32,6 @@
             <th>Peak Mem</th>
             <th>Wall Time</th>
             <th>CPU Time</th>
-            <th>Memory</th>
-            <th>Peak Mem</th>
         </tr>
     </thead>
     <tbody>
@@ -43,9 +41,7 @@
             <td>{{call.wt | formatTiming}}</td>
             <td>{{call.cpu | formatTiming}}</td>
             <td>{{call.mu | formatMemory}}</td>
-            <td>{{call.pmu}}</td>
-            <td></td>
-            <td></td>
+            <td>{{call.pmu | formatMemory}}</td>
             <td></td>
             <td></td>
         </tr>

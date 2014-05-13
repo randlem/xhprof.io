@@ -44,7 +44,7 @@ appFilters.filter('formatMemory', function () {
 			if (memory > cutoff) {
 				var val = memory / cutoff;
 				console.log(val);
-				return ((Number.isInteger(val)) ? val : val.toFixed(2)) + bins[i];
+				return ((val % 1 === 0) ? val : val.toFixed(2)) + bins[i];
 			}
 		}
 
